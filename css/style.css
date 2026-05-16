@@ -421,14 +421,6 @@ button {
     border-radius: 10px;
 }
 
-.project-1 {
-  background-image: url('../images/atm-simulator.png');
-}
-
-.project-2 {
-  background-image: url('../images/blog.png');
-}
-
 .project-3 {
   background-image: url('../images/portfolio.png');
 }
