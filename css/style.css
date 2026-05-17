@@ -239,7 +239,7 @@ button {
     width: 80%;
     height: 80%;
     border-radius: 50%;
-    background: url('/images/Profile.jpg') center/cover;
+    background: url('https://assets.codepen.io/15988159/internal/avatars/users/default.png?fit=crop&format=auto&height=512&version=1765956479&width=512') center/cover;
     position: absolute;
     top: 5%;
     left: 5%;
