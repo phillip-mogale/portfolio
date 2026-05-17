@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initAbout();
     initWork();
     initSkills();
-    initContact();
     initScrollAnimations();
     initParticles();
     initThreeJSBackground();

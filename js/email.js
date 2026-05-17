@@ -1,46 +1,37 @@
-const supabaseUrl = 'https://almskyyxefcmuiyxjunf.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFsbXNreXl4ZWZjbXVpeXhqdW5mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5ODgxNTcsImV4cCI6MjA2NzU2NDE1N30.gEOmibkpEGujYO3vpTszCLuyqINydp6YpWcUe-c1K5A';
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+(function() {
+    emailjs.init("dNtXuMMDXe4pY0DeJ");
+})();
 
-document.getElementById('main-form').addEventListener('submit', async (e) => {
+document.getElementById("main-form").addEventListener("submit", function(e) {
     e.preventDefault();
-    
-    const name = document.getElementById('name-input').value;
-    const email = document.getElementById('email-input').value;
-    const userMessage = document.getElementById('message-input').value;
-    
-    const statusElement = document.getElementById('statusMessage');
-    statusElement.classList.add('hidden');
-    
-    try {
-        const { data, error } = await supabase.from('portfolio')
-        .insert([
-            {
-                name: name,
-                email: email,
-                message: userMessage,
-                created_at: new Date().toISOString()
-            }
-        ]);
-        
-        if (error) {
-            throw error;
-        }
-        
-        statusElement.textContent = 'Message sent successfully!';
-        statusElement.className = 'success';
-        statusElement.classList.remove('hidden');
-        
-        console.log('Inserted data:', data);
-        document.getElementById('main-form').reset();
 
-        setTimeout(() => {
-            statusElement.classList.add('hidden');
-        }, 3000);
-    } catch (error) {
-        statusElement.textContent = `Error: ${error.message}`;
-        statusElement.className = 'error';
-        statusElement.classList.remove('hidden');
-        console.error('Error occured, coudnt send message');
-    }
+    const statusMessage = document.getElementById("statusMessage");
+    const button = document.getElementById("submit-btn");
+    const originalText = button.innerHTML;
+
+    // Show spinner
+    button.disabled = true;
+    button.innerHTML = '<div class="spinner"></div>';
+
+    emailjs.sendForm("service_lrcrsc8", "template_txr160n", this)
+    .then(() => {
+        statusMessage.classList.remove("hidden");
+        statusMessage.innerText = "Message sent successfully!";
+        statusMessage.style.color = "#22c55e";
+
+        // Restore button
+        button.disabled = false;
+        button.innerHTML = originalText;
+        this.reset();
+
+    }).catch((error) => {
+        statusMessage.classList.remove("hidden");
+        statusMessage.innerText = "Failed to send message.";
+        statusMessage.style.color = "#ef4444";
+
+        // Restore button
+        button.disabled = false;
+        button.innerHTML = originalText;
+        console.error(error);
+    });
 });
